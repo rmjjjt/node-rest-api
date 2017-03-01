@@ -51,7 +51,17 @@ router.route('/bears')
             res.json({ message: 'Bear created'});
         });
 
-    });
+    })
+
+    // get all the bears GET @ /api/bears
+    .get(function(req, res) {
+        Bear.find(function(err, bears) {
+            if (err)
+                res.send(err);
+
+            res.json(bears);
+        });
+});
 
 //REGISTER ROUTES
 // all routes will be prefixed with /api
