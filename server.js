@@ -67,6 +67,8 @@ router.route('/bears/:bear_id')
 
     // get the bear with that id GET @ api/bears/:bear_id
     .get(function(req, res) {
+
+        // use bear model to find the bear you want
         Bear.findById(req.params.bear_id, function(err, bear) {
             if (err)
                 res.send(err);
@@ -94,7 +96,19 @@ router.route('/bears/:bear_id')
                 res.json({ message: 'Bear updated!' });
             });
         });
-});
+    })
+
+    // delete the bear with this id DELETE @ api/bears/:bear_id
+    .delete(function(req, res) {
+        Bear.remove({
+            _id: req.params.bear_id
+        }, function(err, bear) {
+            if(err)
+                res.send(err);
+
+            res.json({ message: 'Successfully deleted!' })
+        });
+    });
 
 //REGISTER ROUTES
 // all routes will be prefixed with /api
