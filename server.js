@@ -73,7 +73,28 @@ router.route('/bears/:bear_id')
 
             res.json(bear);
         });
-    });
+    })
+
+    // update the bear with this id PUT @ api/bears/:bear_id
+    .put(function(req, res) {
+
+        // use bear model to find the bear you want
+        Bear.findById(req.params.bear_id, function(err, bear) {
+
+            if (err)
+                res.send(err);
+
+            bear.name = req.body.name; // update the bear's info
+
+            // save the bear
+            bear.save(function(err) {
+                if(err)
+                    res.send(err);
+
+                res.json({ message: 'Bear updated!' });
+            });
+        });
+});
 
 //REGISTER ROUTES
 // all routes will be prefixed with /api
