@@ -63,6 +63,18 @@ router.route('/bears')
         });
 });
 
+router.route('/bears/:bear_id')
+
+    // get the bear with that id GET @ api/bears/:bear_id
+    .get(function(req, res) {
+        Bear.findById(req.params.bear_id, function(err, bear) {
+            if (err)
+                res.send(err);
+
+            res.json(bear);
+        });
+    });
+
 //REGISTER ROUTES
 // all routes will be prefixed with /api
 app.use('/api', router);
